@@ -1,46 +1,88 @@
-# Cat Breed Search with CLIP
+# Cat Breed Image Finder
 
-This project demonstrates how to use a CLIP model to search for cat breeds based on textual descriptions.
+This project is a Streamlit application that uses the CLIP model and FAISS index to find images of cat breeds based on text input.
+
+## Prerequisites
+
+- Python 3.8+
+- Virtual environment (recommended)
 
 ## Setup
 
-1. Clone this repository to your local machine.
+1. **Clone the repository** (if this project is in a Git repository):
 
-2. Navigate to the project directory.
+    ```bash
+    git clone <repository-url>
+    cd <repository-directory>
+    ```
 
-3. Create a virtual environment and activate it:
+2. **Create and activate a virtual environment**:
+
     ```bash
     python -m venv venv
     source venv/bin/activate  # On Windows use `venv\Scripts\activate`
     ```
 
-4. Install the required dependencies:
+3. **Install the required packages**:
+
     ```bash
     pip install -r requirements.txt
     ```
 
-5. Install the official CLIP package from OpenAI's GitHub:
-    ```bash
-    pip install git+https://github.com/openai/CLIP.git
-    ```
+4. **Download and prepare the dataset**:
 
-6. Download the CSV file:
+    Run the `download_csv.py` script to download the dataset and prepare the CSV file.
+
     ```bash
     python download_csv.py
     ```
 
-7. Ensure you have the necessary images in the `/data/images/breeds` directory.
+5. **Create the FAISS index**:
 
-8. Create the FAISS index:
+    Run the `create_faiss_index.py` script to create the FAISS index from the dataset.
+
     ```bash
     python create_faiss_index.py
     ```
 
-9. Run the Streamlit app:
+## Running the Application
+
+1. **Run the Streamlit application**:
+
     ```bash
     streamlit run main.py
     ```
 
-10. Enter a description of a cat breed in the input box and click "Find Image" to see the top matching breeds.
+2. **Open your web browser** and go to `http://localhost:8501` to use the application.
+
+## Project Structure
+
+/project_directory
+    /data
+        faiss.index
+        train_cat_breeds.csv
+        /images
+    /model
+        model.py
+    main.py
+    create_faiss_index.py
+    download_csv.py
+    README.md
+    requirements.txt
+    verify_imports.py
 
 
+## Notes
+
+- The `main.py` script sets the `KMP_DUPLICATE_LIB_OK` environment variable to avoid OpenMP runtime conflicts.
+- Ensure that the `model.py` file is correctly referenced in the `main.py` script.
+
+
+## Troubleshooting
+
+- **OpenMP Runtime Conflict**: The `main.py` script includes a workaround by setting `KMP_DUPLICATE_LIB_OK=TRUE`.
+- **Dependency Issues**: Ensure you are using the correct versions of dependencies as specified in `requirements.txt`.
+
+## Acknowledgements
+
+- This project uses the [CLIP model](https://github.com/openai/CLIP) by OpenAI.
